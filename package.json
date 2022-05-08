@@ -8,6 +8,7 @@
     "server": "nodemon app.js",
     "server:debug": "nodemon --inspect app.js"
   },
+  "proxy": "http://localhost:5001",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wcorona269/MERN-Twitter.git"

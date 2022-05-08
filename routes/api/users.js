@@ -8,6 +8,10 @@ const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
+router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.json({msg: 'Success'});
+})
+
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body)
 
@@ -82,6 +86,14 @@ router.post('/login', (req, res) => {
           }
         })
     })
+}),
+
+router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.json({
+    id: req.user.id,
+    handle: req.user.handle,
+    email: req.user.email
+  });
 })
 
 module.exports = router;
