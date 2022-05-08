@@ -6,11 +6,18 @@ const db = require("./config/keys").mongoURI;
 const users = require('./routes/api/users');
 const tweets = require('./routes/api/tweets');
 const User = require('./models/User');
+const bodyParser = require('body-parser');
 
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
+
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+
+app.use(bodyParser.json());
 
 // route setup
 app.get("/", (req, res) => {
