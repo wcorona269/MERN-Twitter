@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const db = require("./config/keys").mongoURI;
 const users = require('./routes/api/users');
 const tweets = require('./routes/api/tweets');
+const User = require('./models/User');
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -13,9 +14,14 @@ mongoose
 
 // route setup
 app.get("/", (req, res) => {
-	debugger;
+	const user = new User({
+		handle: "jim",
+		email: "jim@jim.jim",
+		password: "jimisgreat123"
+	})
+	user.save()
 	res.send(" go")
-})
+});
 
 app.use('/api/users', users);
 app.use('/api/tweets', tweets);
