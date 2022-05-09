@@ -1,4 +1,5 @@
 // creates a new Express server
+const path = require('path');
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
@@ -8,6 +9,13 @@ const tweets = require('./routes/api/tweets');
 const User = require('./models/User');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
